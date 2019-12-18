@@ -1,4 +1,4 @@
-#include "kalmanfilter.h"
+#include "KalmanFilter.h"
 
 KalmanFilter::KalmanFilter(const double deltaT_s)
     : _deltaT_s(deltaT_s)

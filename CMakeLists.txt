@@ -14,5 +14,5 @@ add_executable(kalman
     ../lib/libdfr-matrix/libdfr-matrix.cpp
     ../lib/libdfr-rv/libdfr-rv.cpp
     KalmanFilter.cpp
-    main.cpp
+    testKalman.cpp
 )

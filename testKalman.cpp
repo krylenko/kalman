@@ -4,7 +4,7 @@
 #include <cmath>
 
 #include "../lib/libdfr-rv/libdfr-rv.h"
-#include "../kalman/kalmanfilter.h"
+#include "../kalman/KalmanFilter.h"
 
 std::pair<double, double> truePathSin(const double amplitude=1.0, const double speedFactor=1.0)
 {
@@ -31,7 +31,7 @@ double noisyPath(const double truePoint_, const double var_=1.0)
 int main()
 {
     const unsigned int timesteps = 1000;
-    const unsigned int observationRatio = 27;
+    const unsigned int observationRatio = 13;
     double truePos = 0.0;
     double velocity_mps = 1.0;
     double deltaT_s = 0.5;
@@ -56,20 +56,28 @@ int main()
         truePos = truePathLinear(deltaT_s, velocity_mps);
         auto estimate = filter.predict();
         const double filterPos = std::get<0>(estimate);         // always predict a position
-        //std::cout << "v " << std::get<1>(estimate) << std::endl;
+        const double filterVelo = std::get<1>(estimate);
 
         // generate noisy observations given sparsity ratio
         if (i % observationRatio == 0) {
             const double noise = rvGaussian(0.0, 15.3);
             const double noisyPos = truePos + noise;
-            //const double noisyVelo = velocity_mps + 0.01 * noise;
             filter.observePos(noisyPos, noise);
-            //filter.observeVelo(noisyVelo, 0.01 * noise);
+
+            // observe velocity in a sparser way
+            if (i % (observationRatio * 2) == 0) {
+                const double noiseScale = 0.1;
+                const double noisyVelo = velocity_mps + noiseScale * noise;
+                filter.observeVelo(noisyVelo, noiseScale * noise);
+                std::cerr << "v true " << velocity_mps << " noisy " << noisyVelo << " v est " << filterVelo << " err " << filterVelo - velocity_mps << std::endl;
+            }
+
             filter.update();                                    // only update on observations
             const double error = filterPos - truePos;
             errTracker.push_back(abs(error));
             const double errMean = std::accumulate(errTracker.begin(), errTracker.end(), 0) / static_cast<double>(errTracker.size());
             std::cout << i << " " << truePos << " " << noisyPos << " " << filterPos << " err " << error << " err mean " << errMean << std::endl;
+
         } else {
             std::cout << i << " " << truePos << " " << " " << std::endl;
         }
