@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/junkbox/code/lib/libdfr-matrix/libdfr-matrix.h
+iostream
+-
+fstream
+-
+iomanip
+-
+
+/home/junkbox/code/lib/libdfr-pfilt/libdfr-pfilt.h
+iostream
+-
+libdfr-matrix.h
+/home/junkbox/code/lib/libdfr-pfilt/libdfr-matrix.h
+libdfr-rv.h
+/home/junkbox/code/lib/libdfr-pfilt/libdfr-rv.h
+
+/home/junkbox/code/lib/libdfr-pfilt/pfTest.cpp
+libdfr-pfilt.h
+/home/junkbox/code/lib/libdfr-pfilt/libdfr-pfilt.h
+../libdfr-rv/libdfr-rv.h
+/home/junkbox/code/lib/libdfr-rv/libdfr-rv.h
+../libdfr-matrix/libdfr-matrix.h
+/home/junkbox/code/lib/libdfr-matrix/libdfr-matrix.h
+
+/home/junkbox/code/lib/libdfr-rv/libdfr-rv.h
+iostream
+-
+vector
+-
+time.h
+-
+../libdfr-matrix/libdfr-matrix.h
+/home/junkbox/code/lib/libdfr-matrix/libdfr-matrix.h
+

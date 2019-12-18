@@ -1,0 +1,2 @@
+/usr/bin/ar qc librandom_var.a  CMakeFiles/random_var.dir/home/junkbox/code/lib/libdfr-rv/libdfr-rv.cpp.o
+/usr/bin/ranlib librandom_var.a

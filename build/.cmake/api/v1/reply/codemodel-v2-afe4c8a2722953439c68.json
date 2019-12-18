@@ -1,0 +1,86 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "kalman",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "kalman::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-kalman-Debug-8460fa86f68290aec537.json",
+					"name" : "kalman",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "matrix::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-matrix-Debug-c23d6a5b5a4308015539.json",
+					"name" : "matrix",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "pfilt::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-pfilt-Debug-22132af0976ab9d99e20.json",
+					"name" : "pfilt",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "random_var::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-random_var-Debug-811b5865b00292a629d5.json",
+					"name" : "random_var",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/junkbox/code/kalman/build",
+		"source" : "/home/junkbox/code/kalman"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 0
+	}
+}
