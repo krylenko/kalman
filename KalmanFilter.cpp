@@ -121,7 +121,7 @@ void KalmanFilter::update()
     _P = (ident - _K*_H)*_P;
 }
 
-double KalmanFilter::posVar()
+Matrix KalmanFilter::estVar()
 {
-    return _P[0][0];
+    return _P;
 }

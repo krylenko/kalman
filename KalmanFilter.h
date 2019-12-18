@@ -12,7 +12,7 @@ public:
     void observePos(const double observedPosition_m_, const double noise_);
     void observeVelo(const double observedVelocity_mps_, const double noise_);
     void update();
-    double posVar();
+    Matrix estVar();
 
 private:
 

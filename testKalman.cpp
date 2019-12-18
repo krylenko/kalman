@@ -30,7 +30,7 @@ double noisyPath(const double truePoint_, const double var_=1.0)
 
 int main()
 {
-    const unsigned int timesteps = 1000;
+    const unsigned int timesteps = 1500;
     const unsigned int observationRatio = 13;
     double truePos = 0.0;
     double velocity_mps = 1.0;
@@ -40,6 +40,9 @@ int main()
     rvSeed();
     KalmanFilter filter(deltaT_s);
     filter.init(truePos, velocity_mps);
+    Matrix P = filter.estVar();
+    std::cerr << P[0][0] << " " << P[0][1] << std::endl;
+    std::cerr << P[1][0] << " " << P[1][1] << std::endl;
 
     for (unsigned int i=0; i<timesteps; ++i) {
 
@@ -48,8 +51,10 @@ int main()
             velocity_mps = 0.25;
         } else if (i >= 350 && i < 750) {
             velocity_mps = 2.3;
-        } else if (i >= 650) {
+        } else if (i >= 650 && i < 950) {
             velocity_mps = 0.0;
+        } else if (i >= 950) {
+            velocity_mps = -1.2;
         }
 
         // generate the real path
@@ -82,6 +87,9 @@ int main()
             std::cout << i << " " << truePos << " " << " " << std::endl;
         }
     }
+    P = filter.estVar();
+    std::cerr << P[0][0] << " " << P[0][1] << std::endl;
+    std::cerr << P[1][0] << " " << P[1][1] << std::endl;
 
     return 0;
 }
