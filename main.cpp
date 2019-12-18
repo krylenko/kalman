@@ -1,10 +1,12 @@
+#include <algorithm>
 #include <iostream>
+#include <vector>
 #include <cmath>
 
 #include "../lib/libdfr-rv/libdfr-rv.h"
 #include "../kalman/kalmanfilter.h"
 
-std::pair<double, double> truePath(const double amplitude=1.0, const double speedFactor=1.0)
+std::pair<double, double> truePathSin(const double amplitude=1.0, const double speedFactor=1.0)
 {
     static double phase = 0.0;
     const double output = amplitude * sin(phase);
@@ -12,23 +14,66 @@ std::pair<double, double> truePath(const double amplitude=1.0, const double spee
     return std::make_pair(phase, output);
 }
 
-double noisyPath(const double truePoint, const double var=1.0)
+double truePathLinear(const double deltaT_s_, const double velocity_mps_)
 {
-    const double noise = rvGaussian(0.0, var);
-    return truePoint + noise;
+    static double position = 0.0;
+    const double newPos = position + velocity_mps_ * deltaT_s_;
+    position = newPos;
+    return newPos;
+}
+
+double noisyPath(const double truePoint_, const double var_=1.0)
+{
+    const double noise = rvGaussian(0.0, var_);
+    return truePoint_ + noise;
 }
 
 int main()
 {
+    const unsigned int timesteps = 1000;
+    const unsigned int observationRatio = 27;
+    double truePos = 0.0;
+    double velocity_mps = 1.0;
+    double deltaT_s = 0.5;
+    std::vector<double> errTracker;
+
     rvSeed();
-    KalmanFilter filter;
-    for (unsigned int i=0; i<200; ++i) {
-        std::pair<double, double> truePoint = truePath();
-        double phase = std::get<0>(truePoint);
-        double truePt = std::get<1>(truePoint);
-        double noisyPoint = noisyPath(truePt, 0.06);
-        double filterPoint = filter.predict();
-        std::cout << phase << " " << truePt << " " << noisyPoint << " " << filterPoint << std::endl;
+    KalmanFilter filter(deltaT_s);
+    filter.init(truePos, velocity_mps);
+
+    for (unsigned int i=0; i<timesteps; ++i) {
+
+        // change velocity a couple of times to make things interesting
+        if (i >= 95 && i < 350) {
+            velocity_mps = 0.25;
+        } else if (i >= 350 && i < 750) {
+            velocity_mps = 2.3;
+        } else if (i >= 650) {
+            velocity_mps = 0.0;
+        }
+
+        // generate the real path
+        truePos = truePathLinear(deltaT_s, velocity_mps);
+        auto estimate = filter.predict();
+        const double filterPos = std::get<0>(estimate);         // always predict a position
+        //std::cout << "v " << std::get<1>(estimate) << std::endl;
+
+        // generate noisy observations given sparsity ratio
+        if (i % observationRatio == 0) {
+            const double noise = rvGaussian(0.0, 15.3);
+            const double noisyPos = truePos + noise;
+            //const double noisyVelo = velocity_mps + 0.01 * noise;
+            filter.observePos(noisyPos, noise);
+            //filter.observeVelo(noisyVelo, 0.01 * noise);
+            filter.update();                                    // only update on observations
+            const double error = filterPos - truePos;
+            errTracker.push_back(abs(error));
+            const double errMean = std::accumulate(errTracker.begin(), errTracker.end(), 0) / static_cast<double>(errTracker.size());
+            std::cout << i << " " << truePos << " " << noisyPos << " " << filterPos << " err " << error << " err mean " << errMean << std::endl;
+        } else {
+            std::cout << i << " " << truePos << " " << " " << std::endl;
+        }
     }
+
     return 0;
 }

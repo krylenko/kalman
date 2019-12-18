@@ -1,1 +1,0 @@
-/usr/bin/g++  -g   CMakeFiles/kalman.dir/kalmanfilter.cpp.o CMakeFiles/kalman.dir/main.cpp.o  -o kalman  libmatrix.a librandom_var.a libmatrix.a 

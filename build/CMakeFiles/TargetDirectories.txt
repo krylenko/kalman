@@ -1,6 +1,0 @@
-/home/junkbox/code/kalman/build/CMakeFiles/rebuild_cache.dir
-/home/junkbox/code/kalman/build/CMakeFiles/edit_cache.dir
-/home/junkbox/code/kalman/build/CMakeFiles/matrix.dir
-/home/junkbox/code/kalman/build/CMakeFiles/random_var.dir
-/home/junkbox/code/kalman/build/CMakeFiles/kalman.dir
-/home/junkbox/code/kalman/build/CMakeFiles/pfilt.dir

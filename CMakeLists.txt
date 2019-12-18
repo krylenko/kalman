@@ -34,12 +34,12 @@ target_link_libraries(kalman
     random_var
 )
 
-add_executable(pfilt
-    ../lib/libdfr-pfilt/libdfr-pfilt.cpp
-    ../lib/libdfr-pfilt/pfTest.cpp
-    )
+#add_executable(pfilt
+#    ../lib/libdfr-pfilt/libdfr-pfilt.cpp
+#    ../lib/libdfr-pfilt/pfTest.cpp
+#    )
 
-target_link_libraries(pfilt
-    matrix
-    random_var
-    )
+#target_link_libraries(pfilt
+#    matrix
+#    random_var
+#    )

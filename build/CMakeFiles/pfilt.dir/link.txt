@@ -1,1 +1,0 @@
-/usr/bin/g++  -g   CMakeFiles/pfilt.dir/home/junkbox/code/lib/libdfr-pfilt/libdfr-pfilt.cpp.o CMakeFiles/pfilt.dir/home/junkbox/code/lib/libdfr-pfilt/pfTest.cpp.o  -o pfilt  libmatrix.a librandom_var.a libmatrix.a 
