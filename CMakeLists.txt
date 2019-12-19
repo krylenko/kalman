@@ -16,3 +16,11 @@ add_executable(kalman
     KalmanFilter.cpp
     testKalman.cpp
 )
+
+add_executable(extKalman
+    ../lib/libdfr-matrix/libdfr-matrix.cpp
+    ../lib/libdfr-rv/libdfr-rv.cpp
+    KalmanFilter.cpp
+    ExtendedKalmanFilter.cpp
+    testExtendedKalman.cpp
+)

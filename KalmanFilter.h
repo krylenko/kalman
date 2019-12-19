@@ -7,7 +7,6 @@ class KalmanFilter
 {
 public:
     KalmanFilter(const Matrix initState_, const double deltaT_s);
-    void init(const double initPos_m_, const double initVel_mps_);
     std::pair<double, double> predict();
     void observe(Matrix& observation_, Matrix& obsModel_);
     void update();
