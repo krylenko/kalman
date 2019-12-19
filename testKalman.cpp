@@ -31,15 +31,24 @@ double noisyPath(const double truePoint_, const double var_=1.0)
 int main()
 {
     const unsigned int timesteps = 1500;
-    const unsigned int observationRatio = 13;
+    const unsigned int observationRatio = 11;
     double truePos = 0.0;
     double velocity_mps = 1.0;
     double deltaT_s = 0.5;
     std::vector<double> errTracker;
 
+    Matrix initState(2,1);
+    initState[0][0] = truePos;
+    initState[1][0] = velocity_mps;
+
+    Matrix obs(2,1);
+    Matrix H_pos(2,2), H_vel(2,2);
+    H_pos[0][0] = 1.0;
+    H_vel[0][1] = 1.0;
+    H_vel[1][1] = 1.0;
+
     rvSeed();
-    KalmanFilter filter(deltaT_s);
-    filter.init(truePos, velocity_mps);
+    KalmanFilter filter(initState, deltaT_s);
     Matrix P = filter.estVar();
     std::cerr << P[0][0] << " " << P[0][1] << std::endl;
     std::cerr << P[1][0] << " " << P[1][1] << std::endl;
@@ -65,15 +74,32 @@ int main()
 
         // generate noisy observations given sparsity ratio
         if (i % observationRatio == 0) {
-            const double noise = rvGaussian(0.0, 15.3);
+            const double noise = rvGaussian(0.0, 60.0);
             const double noisyPos = truePos + noise;
-            filter.observePos(noisyPos, noise);
+
+            /*
+            // observe both state variables at once
+            Matrix H(2,2);
+            H[0][0] = 1.0;
+            H[0][1] = 1.0;
+            H[1][1] = 1.0;
+            obs[0][0] = noisyPos;
+            obs[1][0] = velocity_mps + 0.5 * noise;
+            filter.observe(obs, H);
+            */
+
+            obs[0][0] = noisyPos;
+            obs[1][0] = 0.0;
+            filter.observe(obs, H_pos);
 
             // observe velocity in a sparser way
             if (i % (observationRatio * 2) == 0) {
-                const double noiseScale = 0.1;
+                const double noiseScale = 0.75;
                 const double noisyVelo = velocity_mps + noiseScale * noise;
-                filter.observeVelo(noisyVelo, noiseScale * noise);
+
+                obs[0][1] = 0.0;
+                obs[1][0] = noisyVelo;
+                filter.observe(obs, H_vel);
                 std::cerr << "v true " << velocity_mps << " noisy " << noisyVelo << " v est " << filterVelo << " err " << filterVelo - velocity_mps << std::endl;
             }
 
