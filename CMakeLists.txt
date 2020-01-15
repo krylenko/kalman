@@ -10,6 +10,17 @@ include_directories(include
     /home/junkbox/code/lib/libdfr-rv
     )
 
+add_executable(mtxTest
+    ../lib/libdfr-matrix/libdfr-matrix.cpp
+    ../lib/libdfr-matrix/mtxTest.cpp
+)
+
+add_executable(rvTest
+    ../lib/libdfr-matrix/libdfr-matrix.cpp
+    ../lib/libdfr-rv/libdfr-rv.cpp
+    ../lib/libdfr-rv/rvTest.cpp
+)
+
 add_executable(kalman
     ../lib/libdfr-matrix/libdfr-matrix.cpp
     ../lib/libdfr-rv/libdfr-rv.cpp
