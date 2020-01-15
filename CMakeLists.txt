@@ -8,6 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include_directories(include
     /home/junkbox/code/lib/libdfr-matrix
     /home/junkbox/code/lib/libdfr-rv
+    /home/junkbox/code/lib/libdfr-neural
     )
 
 add_executable(mtxTest
@@ -19,6 +20,28 @@ add_executable(rvTest
     ../lib/libdfr-matrix/libdfr-matrix.cpp
     ../lib/libdfr-rv/libdfr-rv.cpp
     ../lib/libdfr-rv/rvTest.cpp
+)
+
+add_executable(xorTest
+    ../lib/libdfr-matrix/libdfr-matrix.cpp
+    ../lib/libdfr-neural/dfrNeuralNet.cpp
+    ../lib/libdfr-neural/dfrNeuralLayer.cpp
+    ../lib/libdfr-neural/dfrNeuralLinearLayer.cpp
+    ../lib/libdfr-neural/dfrNeuralTanhLayer.cpp
+    ../lib/libdfr-neural/dfrNeuralSigmoidLayer.cpp
+    ../lib/libdfr-neural/dfrNeuralSoftmaxLayer.cpp
+    ../lib/libdfr-neural/dfrNeuralTestWrapper_XOR.cpp
+)
+
+add_executable(mnistTest
+    ../lib/libdfr-matrix/libdfr-matrix.cpp
+    ../lib/libdfr-neural/dfrNeuralNet.cpp
+    ../lib/libdfr-neural/dfrNeuralLayer.cpp
+    ../lib/libdfr-neural/dfrNeuralLinearLayer.cpp
+    ../lib/libdfr-neural/dfrNeuralTanhLayer.cpp
+    ../lib/libdfr-neural/dfrNeuralSigmoidLayer.cpp
+    ../lib/libdfr-neural/dfrNeuralSoftmaxLayer.cpp
+    ../lib/libdfr-neural/dfrNeuralTestWrapper_MNISTdigit.cpp
 )
 
 add_executable(kalman
