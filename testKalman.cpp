@@ -1,4 +1,4 @@
-#include <algorithm>
+#include <numeric>
 #include <iostream>
 #include <vector>
 #include <cmath>
