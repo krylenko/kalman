@@ -28,6 +28,7 @@ include_directories(include
 
 add_executable(xorTest
     ../lib/libdfr-matrix/libdfr-matrix.cpp
+    ../lib/libdfr-neural/DataLoader.cpp
     ../lib/libdfr-neural/dfrNeuralNet.cpp
     ../lib/libdfr-neural/dfrNeuralLayer.cpp
     ../lib/libdfr-neural/dfrNeuralLinearLayer.cpp
@@ -39,6 +40,7 @@ add_executable(xorTest
 
 add_executable(mnistTest
     ../lib/libdfr-matrix/libdfr-matrix.cpp
+    ../lib/libdfr-neural/DataLoader.cpp
     ../lib/libdfr-neural/dfrNeuralNet.cpp
     ../lib/libdfr-neural/dfrNeuralLayer.cpp
     ../lib/libdfr-neural/dfrNeuralLinearLayer.cpp
