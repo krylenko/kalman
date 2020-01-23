@@ -33,6 +33,7 @@ add_executable(xorTest
     ../lib/libdfr-neural/dfrNeuralLayer.cpp
     ../lib/libdfr-neural/dfrNeuralLinearLayer.cpp
     ../lib/libdfr-neural/dfrNeuralTanhLayer.cpp
+    ../lib/libdfr-neural/dfrNeuralReLULayer.cpp
     ../lib/libdfr-neural/dfrNeuralSigmoidLayer.cpp
     ../lib/libdfr-neural/dfrNeuralSoftmaxLayer.cpp
     ../lib/libdfr-neural/dfrNeuralTestWrapper_XOR.cpp
@@ -45,6 +46,7 @@ add_executable(mnistTest
     ../lib/libdfr-neural/dfrNeuralLayer.cpp
     ../lib/libdfr-neural/dfrNeuralLinearLayer.cpp
     ../lib/libdfr-neural/dfrNeuralTanhLayer.cpp
+    ../lib/libdfr-neural/dfrNeuralReLULayer.cpp
     ../lib/libdfr-neural/dfrNeuralSigmoidLayer.cpp
     ../lib/libdfr-neural/dfrNeuralSoftmaxLayer.cpp
     ../lib/libdfr-neural/dfrNeuralTestWrapper_MNISTdigit.cpp
